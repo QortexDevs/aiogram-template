@@ -13,27 +13,23 @@ logger = logging.getLogger(__name__)
 async def main():
     logging.basicConfig(
         level=logging.INFO,
-        format="%(filename)s:%(lineno)d #%(levelname)-8s "
-        "[%(asctime)s] - %(name)s - %(message)s",
+        format='%(filename)s:%(lineno)d #%(levelname)-8s ' '[%(asctime)s] - %(name)s - %(message)s',
     )
 
-    logger.info("Starting bot")
+    logger.info('Starting bot')
 
-    default_bot_properties: DefaultBotProperties = DefaultBotProperties(
-        parse_mode="HTML"
-    )
+    default_bot_properties: DefaultBotProperties = DefaultBotProperties(parse_mode='HTML')
     bot: Bot = Bot(token=settings.TELEGRAM_BOT_TOKEN, default=default_bot_properties)
-    logger.info(f"settings.REDIS_URL: {settings.REDIS_URL}")
+    logger.info('settings.REDIS_URL: %s', settings.REDIS_URL)
     dp: Dispatcher = Dispatcher(storage=RedisStorage.from_url(settings.REDIS_URL))
 
     dp.include_router(commons.router)
 
-    # await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     try:
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
-        logger.info("Bot stopped")
+        logger.info('Bot stopped')
