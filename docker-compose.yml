@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  bot:
+    build: .
+    container_name: bot
+    volumes:
+      - .:/code
+    command: poetry run python app/main.py
+    environment:
+      - TELEGRAM_BOT_TOKEN={TOKEN}
+    ports:
+      - "3300:3300"
