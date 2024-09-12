@@ -1,6 +1,6 @@
 FROM python:3.12
 
-WORKDIR /
+WORKDIR /code
 
 COPY pyproject.toml poetry.lock* /code/
 
@@ -10,4 +10,4 @@ RUN pip install --upgrade pip && \
 RUN poetry config virtualenvs.create false && \
     poetry install
 
-COPY . /code/
+COPY . /code

@@ -3,13 +3,11 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.base import BaseStorage
 from aiogram.types import (
-    KeyboardButton,
     Message,
-    ReplyKeyboardMarkup,
 )
 from keyboards.start import START_KEYBOARD
 
-router = Router()
+router = Router(name=__name__)
 
 
 class StartForm(StatesGroup):
@@ -17,10 +15,10 @@ class StartForm(StatesGroup):
     age = State()
 
 
-@router.message(CommandStart("start"))
+@router.message(CommandStart())
 async def start(message: Message, state: BaseStorage) -> None:
     start_message = "Привет!\n" "Это бот\n" "Напиши свое ФИО"
-    await message.answer(start_message, reply_markup=None)
+    await message.answer(start_message)
     await state.set_state(StartForm.name)
 
 

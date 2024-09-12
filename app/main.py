@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.redis import RedisStorage
 from core import settings
-from handlers import common
+from handlers import commons
 
 logger = logging.getLogger(__name__)
 
@@ -26,9 +26,9 @@ async def main():
     logger.info(f"settings.REDIS_URL: {settings.REDIS_URL}")
     dp: Dispatcher = Dispatcher(storage=RedisStorage.from_url(settings.REDIS_URL))
 
-    dp.include_router(common.router)
+    dp.include_router(commons.router)
 
-    await bot.delete_webhook(drop_pending_updates=True)
+    # await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 

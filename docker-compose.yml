@@ -1,6 +1,12 @@
 version: "3.8"
 
 services:
+  redis:
+    image: redis:latest
+    container_name: redis-bot
+    networks:
+      - bot_network
+
   bot:
     build: .
     container_name: bot
@@ -9,5 +15,14 @@ services:
     command: poetry run python app/main.py
     environment:
       - TELEGRAM_BOT_TOKEN={TOKEN}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
       - "3300:3300"
+    depends_on:
+      - redis
+    networks:
+      - bot_network
+
+networks:
+  bot_network:

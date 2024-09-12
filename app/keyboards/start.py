@@ -3,8 +3,8 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
 )
 
-START_KEYBOARD = (
-    ReplyKeyboardMarkup(
+# fmt: off
+START_KEYBOARD = ReplyKeyboardMarkup(
         keyboard=[
             [
                 KeyboardButton(text="0-10"),
@@ -15,5 +15,5 @@ START_KEYBOARD = (
             ]
         ],
         resize_keyboard=True,
-    ),
-)
+    )
+# fmt: on
