@@ -20,7 +20,6 @@ async def main() -> None:
 
     default_bot_properties: DefaultBotProperties = DefaultBotProperties(parse_mode='HTML')
     bot: Bot = Bot(token=settings.TELEGRAM_BOT_TOKEN, default=default_bot_properties)
-    logger.info('settings.REDIS_URL: %s', settings.REDIS_URL)
     dp: Dispatcher = Dispatcher(storage=RedisStorage.from_url(settings.REDIS_URL))
 
     dp.include_router(commons.router)
